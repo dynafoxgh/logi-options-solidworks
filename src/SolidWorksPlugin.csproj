@@ -69,6 +69,10 @@
     <Reference Include="SolidWorks.Interop.swconst">
       <HintPath>libs/SolidWorks.Interop.swconst.dll</HintPath>
     </Reference>
+
+    <Reference Include="SolidWorks.Interop.swcommands">
+      <HintPath>libs/SolidWorks.Interop.swcommands.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

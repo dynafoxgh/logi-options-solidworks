@@ -1,39 +1,33 @@
-using System;
-using SolidWorks.Interop.sldworks;
-using SolidWorks.Interop.swconst;
-
 namespace Loupedeck.SolidWorksPlugin
 {
     using System;
-    public class SolidworksCommand : PluginDynamicCommand
+
+    using Loupedeck.SolidWorksPlugin.Helpers;
+    public class Sketch : PluginDynamicCommand
     {
-        public SolidworksCommand()
-            : base(displayName: "Enter Sketch", description: "Enters sketch mode", groupName: "Commands")
+
+        private Boolean _isInSketchMode = false;
+
+        public Sketch()
+            : base(displayName: "Sketch", description: "Sketch mode", groupName: "Sketch Tools")
         {
         }
 
         protected override void RunCommand(String actionParameter)
         {
+
             try
             {
-                // Connect to SolidWorks
-                Type swType = Type.GetTypeFromProgID("SldWorks.Application");
-                SldWorks swApp = null;
-                // If solidworks is not running, do nothing
-                if (swType == null)
+                // get the SolidWorks application; exit if not available
+                if (!SolidWorksConnector.TryGetApplication(out var swApp))
                 {
                     Console.WriteLine("SolidWorks is not running.");
                     return;
                 }
-                else
-                {
-                    Console.WriteLine("Connected to SolidWorks.");
-                    swApp = (SldWorks)Activator.CreateInstance(swType);
-                }
-                
+                Console.WriteLine("Connected to SolidWorks.");
 
                 // Attach to the active document
-                ModelDoc2 model = (ModelDoc2)swApp.ActiveDoc;
+                var model = (ModelDoc2)swApp.ActiveDoc;
                 if (model == null)
                 {
                     Console.WriteLine("No active document in SolidWorks.");
@@ -45,12 +39,15 @@ namespace Loupedeck.SolidWorksPlugin
                 sketchMgr.InsertSketch(true);
 
                 Console.WriteLine("Entered sketch mode.");
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+        protected override BitmapImage GetCommandImage(String actionParameter, PluginImageSize imageSize)
+            => BitmapImage.FromResource(this.Plugin.Assembly, "Loupedeck.SolidWorksPlugin.Sketch.png");
 
     }
 }
