@@ -14,13 +14,20 @@ namespace Loupedeck.SolidWorksPlugin.Helpers
         public static Boolean TryGetApplication(out SldWorks swApp)
         {
             swApp = null;
+
+            if (!OperatingSystem.IsWindows())
+            {
+                Console.WriteLine("SolidWorks is only supported on Windows.");
+                return false;
+            }
+
             var swType = Type.GetTypeFromProgID("SldWorks.Application");
             if (swType == null)
             {
                 return false;
             }
 
-            swApp = (SldWorks)Activator.CreateInstance(swType);
+            swApp = Activator.CreateInstance(swType) as SldWorks;
             return swApp != null;
         }
 
