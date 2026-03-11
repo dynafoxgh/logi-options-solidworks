@@ -7,11 +7,11 @@ public abstract class BasicSolidWorksAction : PluginDynamicCommand
     private readonly String _Icon;
     private readonly swCommands_e _Command;
     public BasicSolidWorksAction(String displayName, String description, String groupName, swCommands_e command)
-        : base(displayName: displayName, 
-            description: description, 
+        : base(displayName: displayName,
+            description: description,
             groupName: groupName)
     {
-        this._Icon = displayName.Replace(" ","").Replace("/","");
+        this._Icon = displayName.Replace(" ", "").Replace("/", "");
         this._Command = command;
     }
 

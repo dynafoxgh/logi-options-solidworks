@@ -1,6 +1,8 @@
 namespace Loupedeck.SolidWorksPlugin.Helpers
 {
     using SolidWorks.Interop.sldworks;
+
+    using System.Diagnostics;
     /// <summary>
     /// Provides helper methods for acquiring a SolidWorks COM application instance.
     /// </summary>
@@ -16,19 +18,22 @@ namespace Loupedeck.SolidWorksPlugin.Helpers
             swApp = null;
 
             if (!OperatingSystem.IsWindows())
+            { Console.WriteLine("SolidWorks is only supported on Windows."); return false; }
+
+            if (Process.GetProcessesByName("SLDWORKS").Length == 0)
+            { return false; }
+
+            try
             {
-                Console.WriteLine("SolidWorks is only supported on Windows.");
+                swApp = (SldWorks)Activator.CreateInstance(
+                    Type.GetTypeFromProgID("SldWorks.Application"));
+
+                return swApp != null;
+            }
+            catch
+            {
                 return false;
             }
-
-            var swType = Type.GetTypeFromProgID("SldWorks.Application");
-            if (swType == null)
-            {
-                return false;
-            }
-
-            swApp = Activator.CreateInstance(swType) as SldWorks;
-            return swApp != null;
         }
 
         /// <summary>
