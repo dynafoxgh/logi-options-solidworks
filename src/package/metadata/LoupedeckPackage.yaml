@@ -12,7 +12,7 @@ name: SolidWorks
 displayName: SolidWorks
 
 # Short description of the plugin.
-description: Add a short description of the plugin here.
+description: Logi Options+ plugin adding SolidWorks actions to the MX Creative Console.
 
 # Name of the plugin library file.
 pluginFileName: SolidWorksPlugin.dll
@@ -24,7 +24,7 @@ version: 1.0
 author: DynaFox
 
 # Copyright information.
-copyright: Copyright © 2026 *. All rights reserved.
+copyright: Copyright © 2026 Dynexs. All rights reserved.
 
 # ==================================================================================================
 # PLUGIN PROPERTIES
@@ -78,4 +78,4 @@ licenseUrl: https://opensource.org/licenses/MIT
 #supportPageUrl: https://github.com/myusername/myplugin/issues
 
 # URL of the plugin homepage. The URL is shown in Loupedeck Marketplace.
-#homePageUrl: https://github.com/myusername/myplugin
+homePageUrl: https://github.com/dynafoxgh/solidworks-logi-plugin
